@@ -13,10 +13,30 @@
 			<script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>
 			<script src="js/appRoutes.js"></script>
 			<script src="js/app.js"></script>
-			<script>
+			<script type='text/javascript'>
+
+			$( document ).ready(function() {
+
+			});
 				function gotoUrl(url){
 					// alert('need to go to url '+url);
 					window.location.href=url;
+				}
+
+				function searchOnEnter(event){
+						if(event.keyCode==13){
+							search();
+						}
+				}
+
+				function search(){
+					//construct the url
+					var field=document.getElementById('searchField');
+
+					currentUrl=window.location.href;
+					url=currentUrl.split('/')[0]+'?myquery='+field.value;
+					gotoUrl(url);
+					return true;
 				}
 			</script>
   </head>
@@ -25,10 +45,10 @@
 		<div class="card-panel teal lighten-2 topBar">
 			<div class='row'>
 				<div class='col s8'>
-					<input type='text' placeholder="Search..."/>
+					<input id='searchField' onkeyup='searchOnEnter(event)' type='text' placeholder="Tracks, Artists and Albums..."/>
 				</div>
 				<div class='col s4'>
-					<a class='waves-effect waves-light btn' href="#">
+					<a class='waves-effect waves-light btn' href='javascript:search()'>
 						<i class='material-icons left'>search</i>
 						Search
 					</a>
@@ -45,12 +65,12 @@
 					</ul>
 				</div>
 				<div id='tracksContainer' class='col s12'>
-					<ul>
+					<ul class='cardList'>
 						<% var data= JSON.parse(result)%>
 						<!-- <%=data.tracks%> -->
 						<% data.tracks.items.forEach(function(track){%>
 						<li>
-							<div class='row hoverable waves-effect' onclick="gotoUrl('<%=track.external_urls.spotify%>')">
+							<div class='row hoverable waves-effect' style='height:150px' onclick="gotoUrl('<%=track.external_urls.spotify%>')">
 								<div class='col s4'>
 									<img src='<%=track.album.images[1].url %>' alt="art" width="100%"/>
 								</div>
