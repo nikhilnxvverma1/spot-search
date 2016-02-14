@@ -15,9 +15,6 @@
 			<script src="js/app.js"></script>
 			<script type='text/javascript'>
 
-			$( document ).ready(function() {
-
-			});
 				function gotoUrl(url){
 					// alert('need to go to url '+url);
 					window.location.href=url;
@@ -34,7 +31,9 @@
 					var field=document.getElementById('searchField');
 
 					currentUrl=window.location.href;
-					url=currentUrl.split('/')[0]+'?myquery='+field.value;
+					replaceSpaces=encodeURIComponent(field.value.trim());
+
+					url=currentUrl.split('/')[0]+'?myquery='+replaceSpaces;
 					gotoUrl(url);
 					return true;
 				}
@@ -55,6 +54,7 @@
 				</div>
 			</div>
 		</div>
+		<% var data= JSON.parse(result)%>
 		<div class='container'>
 			<h6>Showing results for <span style="font-weight:bold;"><%=itemToSearch%></span></h6>
 			<div class='row'>
@@ -65,15 +65,25 @@
 						<li class='tab col s3'><a href="#albumsContainer">Albums</a></li>
 					</ul>
 				</div>
-				<% var data= JSON.parse(result)%>
 				<div id='tracksContainer' class='col s12'>
 					<ul class='cardList'>
-
-						<% data.tracks.items.forEach(function(track){%>
+						<%
+						if(data.tracks.items.length==0){
+							%>
+							<h1>Sorry no tracks found for <%=itemToSearch%></h1>
+							<%
+						}else{
+						 data.tracks.items.forEach(function(track){%>
 						<li>
 							<div class='row hoverable waves-effect' style='height:150px' onclick="gotoUrl('<%=track.external_urls.spotify%>')">
 								<div class='col s4'>
-									<img src='<%=track.album.images[1].url %>' alt="art" width="100%"/>
+									<img src='<%
+									if(track.album.images!=null&& track.album.images.length>=2){%>
+									<%=track.album.images[1].url%>
+									<%}else{%>
+											../images/blank_album_art.png
+									<%}
+									%>' alt="art" width="100%"/>
 								</div>
 								<div class='col s8'>
 									<div class='row'>
@@ -99,17 +109,30 @@
 								</div>
 							</div>
 							</li>
-							<% }); %>
+							<% });
+						}
+							%>
 						</ul>
 				</div>
 				<div id='artistsContainer' class='col s12'>
 					<ul class='cardList'>
-
-						<% data.artists.items.forEach(function(artist){%>
+						<%
+						if(data.artists.items.length==0){
+							%>
+							<h1>Sorry no artists found for <%=itemToSearch%></h1>
+							<%
+						}else{
+							data.artists.items.forEach(function(artist){%>
 						<li>
 							<div class='row hoverable waves-effect' style='height:150px' onclick="gotoUrl('<%=artist.external_urls.spotify%>')">
 								<div class='col s4'>
-									<img src='<%=artist.images[1].url %>' alt="art" width="100%"/>
+									<img src='<%
+									if(artist.images!=null&& artist.images.length>=2){%>
+									<%=artist.images[1].url%>
+									<%}else{%>
+											../images/blank_album_art.png
+									<%}
+									%>' alt="art" width="100%"/>
 								</div>
 								<div class='col s8'>
 									<div class='row'>
@@ -138,16 +161,29 @@
 								</div>
 							</div>
 							</li>
-							<% }); %>
+							<% });
+						}
+						%>
 						</ul>
 				</div>
 				<div id='albumsContainer' class='col s12'>
 					<ul class='cardList'>
-
-						<% data.albums.items.forEach(function(album){%>
+						<%
+						if(data.albums.items.length==0){
+							%>
+							<h1>Sorry no albums found for <%=itemToSearch%></h1>
+							<%
+						}else{ data.albums.items.forEach(function(album){%>
 						<li>
 							<div class='row hoverable waves-effect' style='height:150px' onclick="gotoUrl('<%=album.external_urls.spotify%>')">
 								<div class='col s4'>
+									<img src='<%
+									if(album.images!=null&& album.images.length>=2){%>
+									<%=album.images[1].url%>
+									<%}else{%>
+											../images/blank_album_art.png
+									<%}
+									%>' alt="art" width="100%"/>
 									<img src='<%=album.images[1].url %>' alt="art" width="100%"/>
 								</div>
 								<div class='col s8'>
@@ -159,7 +195,8 @@
 								</div>
 							</div>
 							</li>
-							<% }); %>
+							<% });
+						}%>
 						</ul>
 				</div>
 			</div>

@@ -1,60 +1,74 @@
 <!doctype html>
-<html lang="en">
-<head>
-	<meta charset="UTF-8">
-	<base href="/">
 
-	<title>Spot Search</title>
+<html>
+<head>
+
+  <title>Materialize CSS Framework Demo</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
 
 	<!-- Compiled and minified CSS -->
-	  <!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.5/css/materialize.min.css"> -->
+ <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.5/css/materialize.min.css">
 
-	  <!-- Compiled and minified JavaScript -->
-	  <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.5/js/materialize.min.js"></script> -->
+  <link type="text/css" rel="stylesheet" href="css/style.css">
 
-	<!-- CSS -->
-	<!-- <link rel="stylesheet" href="libs/bootstrap/dist/css/bootstrap.min.css"> -->
-	<link rel="stylesheet" href="css/style.css"> <!-- custom styles -->
-
-	<!-- JS -->
-	<script src="libs/angular/angular.min.js"></script>
-	<script src="libs/angular-route/angular-route.min.js"></script>
-
-	<!-- ANGULAR CUSTOM -->
-	<script src="js/controllers/MainCtrl.js"></script>
-	<script src="js/controllers/NerdCtrl.js"></script>
-	<script src="js/services/NerdService.js"></script>
-	<script src="js/controllers/GeekCtrl.js"></script>
-	<script src="js/services/GeekService.js"></script>
-	<script src="js/appRoutes.js"></script>
-	<script src="js/app.js"></script>
 </head>
-<body ng-app="sampleApp" ng-controller="NerdController">
-<div class="container">
+<body>
 
-	<!-- HEADER -->
-	<nav class="navbar navbar-inverse">
-		<div class="navbar-header">
+  <!-- jQuery is required by Materialize to function -->
+  <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+	<!-- Compiled and minified JavaScript -->
+ <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.5/js/materialize.min.js"></script>
+
+  <script type="text/javascript">
+	function gotoUrl(url){
+		// alert('need to go to url '+url);
+		window.location.href=url;
+	}
+
+	function searchOnEnter(event){
+			if(event.keyCode==13){
+				search();
+			}
+	}
+
+	function search(){
+		//construct the url
+		var field=document.getElementById('searchField');
+
+		currentUrl=window.location.href;
+		replaceSpaces=encodeURIComponent(field.value.trim());
+
+		url=currentUrl.split('/')[0]+'search?myquery='+replaceSpaces;
+		gotoUrl(url);
+		return true;
+	}
+  </script>
+	<div class='container'>
+		<div class='row'>
+			<!-- header -->
+				<h1 class="center-align">Spot Search</h1>
+			</div>
+		<div class='row'>
+			<!-- search filed -->
+			<div class='col s6 offset-s3'>
+				<input id='searchField' onkeyup='searchOnEnter(event)' type='text' placeholder="Tracks, Artists and Albums..."/>
+			</div>
 		</div>
-        <div class="container">
-            <h1>Spot search</h1>
-            <form action="/search" method="get">
-                <div class="row">
-									<input type="text" name="myquery" placeholder="Search track..."/>
-								</div>
-								<div class="row">
-									<input type="submit" value="Search"/>
-	                <input type="button" value="I am feeling lucky"/>
-								</div>
-            </form>
+		<div class='row'>
+			<!-- buttons -->
+			<div class='col s3 offset-s3'>
+				<a class='waves-effect waves-light btn' href='javascript:search()'>
+					Search
+				</a>
+			</div>
+			<div class='col s4 '>
+				<a class='waves-effect waves-light btn' href='javascript:search()'>
+					I am feeling lucky
+				</a>
+			</div>
+		</div>
+		</div>
+	</div>
 
-        </div>
-
-	</nav>
-
-	<!-- ANGULAR DYNAMIC CONTENT -->
-	<div ng-view></div>
-
-</div>
 </body>
 </html>
