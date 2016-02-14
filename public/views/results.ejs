@@ -1,77 +1,89 @@
 <!doctype html>
-<html lang="en">
-<head>
-	<meta charset="UTF-8">
-	<base href="/">
+<html>
+   <head>
+      <title>Spot Search</title>
+	  <meta name="viewport" content="width=device-width, initial-scale=1">
+	  <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+	  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.3/css/materialize.min.css">
+		<link rel="stylesheet" href="css/style.css"> <!-- custom styles -->
 
-	<title>Spot Search</title>
+			<script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.3/js/materialize.min.js"></script>
+			<!-- ANGULAR stuff -->
+			<script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>
+			<script src="js/appRoutes.js"></script>
+			<script src="js/app.js"></script>
+			<script>
+				function gotoUrl(url){
+					// alert('need to go to url '+url);
+					window.location.href=url;
+				}
+			</script>
+  </head>
+  <body>
 
-	<!-- Compiled and minified CSS -->
-		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.5/css/materialize.min.css">
-
-		<!-- Compiled and minified JavaScript -->
-		<script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.5/js/materialize.min.js"></script>
-
-	<!-- CSS -->
-	<link rel="stylesheet" href="libs/bootstrap/dist/css/bootstrap.min.css">
-	<link rel="stylesheet" href="css/style.css"> <!-- custom styles -->
-
-<script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>
-
-	<!-- JS -->
-	<!-- <script src="libs/angular/angular.min.js"></script> -->
-	<!-- <script src="libs/angular-route/angular-route.min.js"></script> -->
-
-	<!-- ANGULAR CUSTOM -->
-	<script src="js/appRoutes.js"></script>
-	<script src="js/app.js"></script>
-</head>
-<body ng-app="resultsApp" ng-controller='ResultsController'>
-<div class="container">
-
-	<!-- HEADER -->
-	<nav class="navbar navbar-inverse">
-		<div class="navbar-header">
+		<div class="card-panel teal lighten-2 topBar">
+			<div class='row'>
+				<div class='col s8'>
+					<input type='text' placeholder="Search..."/>
+				</div>
+				<div class='col s4'>
+					<a class='waves-effect waves-light btn' href="#">
+						<i class='material-icons left'>search</i>
+						Search
+					</a>
+				</div>
+			</div>
 		</div>
-		<div>
-			<h2>LOGO</h2>
-			<div class="row">
-
-			<form action='search' method='get'>
-				<input type='text' placeholder="Search"/>
-				<input type='submit' value='Search'/>
-			</form>
-		</div>
-		</div>
-
-        <div>
-            <h4>Showing results for <%= itemToSearch %></h4>
-            <!--TODO list of datamodel views -->
-						<!--Each item-->
-						<ul class='resultList' ng-repeat="item in items">
-							<li>
-							<div class='itemContainer'>
-								<div class='albumArtContainer'>
-									<img class='albumArt' src='http://albumartcollection.com/wp-content/uploads/2011/07/summer-album-art.jpg' alt="art" />
+		<div class='container'>
+			<div class='row'>
+				<div class='col s12'>
+					<ul class='tabs'>
+						<li class='tab col s3'><a href="#tracksContainer" class='active'>Tracks</a></li>
+						<li class='tab col s3'><a href="#artistsContainer">Artists</a></li>
+						<li class='tab col s3'><a href="#albumsContainer">Albums</a></li>
+					</ul>
+				</div>
+				<div id='tracksContainer' class='col s12'>
+					<ul>
+						<% var data= JSON.parse(result)%>
+						<!-- <%=data.tracks%> -->
+						<% data.tracks.items.forEach(function(track){%>
+						<li>
+							<div class='row hoverable waves-effect' onclick="gotoUrl('<%=track.external_urls.spotify%>')">
+								<div class='col s4'>
+									<img src='<%=track.album.images[1].url %>' alt="art" width="100%"/>
 								</div>
-								<div class='detailSection'>
-									<div>{{item.title}}</div>
-									<div>{{item.artist}}</div>
-									<span>{{item.album}}</span>
-									<span>{{item.duration}}</span>
+								<div class='col s8'>
+									<div class='row'>
+										<div class='col s12'>
+											Title: <%= track.name %>
+										</div>
+									</div>
+									<div class='row'>
+										<div class='col s12'>
+											Album: <%=track.album.name%>
+										</div>
+									</div>
+									<div class='row'>
+										<div class='col s12'>
+											Artist: <%=track.artists[0].name%>
+										</div>
+									</div>
+									<div class='row'>
+										<div class='col s12'>
+											Duration
+										</div>
+									</div>
 								</div>
+							</div>
 							</li>
-							</ul>
-
-						</div>
-
-        </div>
-
-	</nav>
-
-	<!-- ANGULAR DYNAMIC CONTENT -->
-	<div ng-view></div>
-
+							<% }); %>
+						</ul>
+				</div>
+				<div id='artistsContainer' class='col s12'>Artists only</div>
+				<div id='albumsContainer' class='col s12'>Albums only</div>
+			</div>
 </div>
-</body>
+   </body>
 </html>

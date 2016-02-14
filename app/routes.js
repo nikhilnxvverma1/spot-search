@@ -36,6 +36,7 @@ module.exports = function(app) {
               console.log("Recieved response") // Print the google web page.
               res.render('results',{
                 itemToSearch:itemToSearch,
+                another:'another',
                 result:body
               });
           }

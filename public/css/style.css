@@ -1,4 +1,8 @@
-body { padding-top:30px; }
+
+.topBar{
+  margin-top: 0px;
+}
+
 .itemContainer{
   display: block;
   width:80%;
