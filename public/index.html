@@ -3,7 +3,7 @@
 <html>
 <head>
 
-  <title>Materialize CSS Framework Demo</title>
+  <title>Spot Search</title>
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
 
 	<!-- Compiled and minified CSS -->
@@ -31,7 +31,7 @@
 			}
 	}
 
-	function search(){
+	function search(lucky){
 		//construct the url
 		var field=document.getElementById('searchField');
 
@@ -39,32 +39,43 @@
 		replaceSpaces=encodeURIComponent(field.value.trim());
 
 		url=currentUrl.split('/')[0]+'search?myquery='+replaceSpaces;
+		if(lucky){
+			url+='&lucky=true';
+		}
 		gotoUrl(url);
 		return true;
 	}
+
   </script>
 	<div class='container'>
-		<div class='row'>
-			<!-- header -->
-				<h1 class="center-align">Spot Search</h1>
-			</div>
-		<div class='row'>
-			<!-- search filed -->
-			<div class='col s6 offset-s3'>
-				<input id='searchField' onkeyup='searchOnEnter(event)' type='text' placeholder="Tracks, Artists and Albums..."/>
-			</div>
-		</div>
-		<div class='row'>
-			<!-- buttons -->
-			<div class='col s3 offset-s3'>
-				<a class='waves-effect waves-light btn' href='javascript:search()'>
-					Search
-				</a>
-			</div>
-			<div class='col s4 '>
-				<a class='waves-effect waves-light btn' href='javascript:search()'>
-					I am feeling lucky
-				</a>
+
+		<div >
+
+			<div class='card-panel hoverable'>
+
+				<div class='row'>
+					<!-- header -->
+						<h1 class="center-align">Spot Search</h1>
+					</div>
+				<div class='row'>
+					<!-- search filed -->
+					<div class='col s6 offset-s3'>
+						<input id='searchField' onkeyup='searchOnEnter(event)' type='text' placeholder="Tracks, Artists and Albums..."/>
+					</div>
+				</div>
+				<div class='row'>
+					<!-- buttons -->
+					<div class='col s3 offset-s3'>
+						<a class='waves-effect waves-light btn' href='javascript:search(false)'>
+							Search
+						</a>
+					</div>
+					<div class='col s4 '>
+						<a class='waves-effect waves-light btn' href='javascript:search(true)'>
+							I am feeling lucky
+						</a>
+					</div>
+				</div>
 			</div>
 		</div>
 		</div>

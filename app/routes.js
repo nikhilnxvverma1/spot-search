@@ -28,6 +28,7 @@ module.exports = function(app) {
       var urlParts=url.parse(req.url,true)
       var query=urlParts.query;
       var itemToSearch=query.myquery;
+      var feelingLucky=query.lucky;
       var request = require('request');
       var endpoint="https://api.spotify.com/v1/search?q="+itemToSearch+"&type=track,artist,album&market=US";
       request(endpoint, function (error, response, body) {
@@ -36,6 +37,7 @@ module.exports = function(app) {
               console.log("Recieved response") // Print the google web page.
               res.render('results',{
                 itemToSearch:itemToSearch,
+                feelingLucky:feelingLucky,
                 another:'another',
                 result:body
               });
