@@ -56,6 +56,7 @@
 			</div>
 		</div>
 		<div class='container'>
+			<h6>Showing results for <span style="font-weight:bold;"><%=itemToSearch%></span></h6>
 			<div class='row'>
 				<div class='col s12'>
 					<ul class='tabs'>
@@ -64,10 +65,10 @@
 						<li class='tab col s3'><a href="#albumsContainer">Albums</a></li>
 					</ul>
 				</div>
+				<% var data= JSON.parse(result)%>
 				<div id='tracksContainer' class='col s12'>
 					<ul class='cardList'>
-						<% var data= JSON.parse(result)%>
-						<!-- <%=data.tracks%> -->
+
 						<% data.tracks.items.forEach(function(track){%>
 						<li>
 							<div class='row hoverable waves-effect' style='height:150px' onclick="gotoUrl('<%=track.external_urls.spotify%>')">
@@ -101,8 +102,66 @@
 							<% }); %>
 						</ul>
 				</div>
-				<div id='artistsContainer' class='col s12'>Artists only</div>
-				<div id='albumsContainer' class='col s12'>Albums only</div>
+				<div id='artistsContainer' class='col s12'>
+					<ul class='cardList'>
+
+						<% data.artists.items.forEach(function(artist){%>
+						<li>
+							<div class='row hoverable waves-effect' style='height:150px' onclick="gotoUrl('<%=artist.external_urls.spotify%>')">
+								<div class='col s4'>
+									<img src='<%=artist.images[1].url %>' alt="art" width="100%"/>
+								</div>
+								<div class='col s8'>
+									<div class='row'>
+										<div class='col s12'>
+											Name: <%= artist.name %>
+										</div>
+									</div>
+									<div class='row'>
+										<div class='col s12'>
+											Genre: <%
+											if(artist.genres.length>0){%>
+												<%=artist.genres%>
+											<%}else{
+													%>
+													-
+													<%
+											}
+											%>
+										</div>
+									</div>
+									<div class='row'>
+										<div class='col s12'>
+											Popularity: <%=artist.popularity%>/100
+										</div>
+									</div>
+								</div>
+							</div>
+							</li>
+							<% }); %>
+						</ul>
+				</div>
+				<div id='albumsContainer' class='col s12'>
+					<ul class='cardList'>
+
+						<% data.albums.items.forEach(function(album){%>
+						<li>
+							<div class='row hoverable waves-effect' style='height:150px' onclick="gotoUrl('<%=album.external_urls.spotify%>')">
+								<div class='col s4'>
+									<img src='<%=album.images[1].url %>' alt="art" width="100%"/>
+								</div>
+								<div class='col s8'>
+									<div class='row'>
+										<div class='col s12'>
+											Name: <%= album.name %>
+										</div>
+									</div>
+								</div>
+							</div>
+							</li>
+							<% }); %>
+						</ul>
+				</div>
 			</div>
 </div>
    </body>
