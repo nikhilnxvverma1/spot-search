@@ -1,1 +1,30 @@
 body { padding-top:30px; }
+.itemContainer{
+  display: block;
+  width:80%;
+  padding: 10px;
+  margin-left:2%;
+}
+
+.albumArtContainer{
+  width: 15%;
+  height: 42px;
+  float: left;
+  padding: 10px;
+}
+
+.albumArt{
+
+  width: 74px;
+
+}
+
+.detailSection{
+  margin-left: 20%;
+  /*height: 200px;*/
+}
+
+.resultList{
+  list-style: none;
+  display: block;
+}

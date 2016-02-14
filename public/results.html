@@ -10,20 +10,17 @@
 	<link rel="stylesheet" href="libs/bootstrap/dist/css/bootstrap.min.css">
 	<link rel="stylesheet" href="css/style.css"> <!-- custom styles -->
 
+<script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>
+
 	<!-- JS -->
-	<script src="libs/angular/angular.min.js"></script>
-	<script src="libs/angular-route/angular-route.min.js"></script>
+	<!-- <script src="libs/angular/angular.min.js"></script> -->
+	<!-- <script src="libs/angular-route/angular-route.min.js"></script> -->
 
 	<!-- ANGULAR CUSTOM -->
-	<script src="js/controllers/MainCtrl.js"></script>
-	<script src="js/controllers/NerdCtrl.js"></script>
-	<script src="js/services/NerdService.js"></script>
-	<script src="js/controllers/GeekCtrl.js"></script>
-	<script src="js/services/GeekService.js"></script>
 	<script src="js/appRoutes.js"></script>
 	<script src="js/app.js"></script>
 </head>
-<body ng-app="sampleApp" ng-controller="NerdController">
+<body ng-app="resultsApp" ng-controller='ResultsController'>
 <div class="container">
 
 	<!-- HEADER -->
@@ -39,19 +36,24 @@
 		</div>
 
         <div>
-            <h4>Showing results for TODO</h4>
+            <h4>Showing results for {{test}}</h4>
             <!--TODO list of datamodel views -->
 						<!--Each item-->
-						<div>
-							<div>
-								<img src='asdf' alt="art"/>
-							</div>
-							<div>
-								<div>Title</div>
-								<div>Artist</div>
-								<span>Album</span>
-								<span>4:34</span>
-							</div>
+						<ul class='resultList' ng-repeat="item in items">
+							<li>
+							<div class='itemContainer'>
+								<div class='albumArtContainer'>
+									<img class='albumArt' src='http://albumartcollection.com/wp-content/uploads/2011/07/summer-album-art.jpg' alt="art" />
+								</div>
+								<div class='detailSection'>
+									<div>{{item.title}}</div>
+									<div>{{item.artist}}</div>
+									<span>{{item.album}}</span>
+									<span>{{item.duration}}</span>
+								</div>
+							</li>
+							</ul>
+
 						</div>
 
         </div>
