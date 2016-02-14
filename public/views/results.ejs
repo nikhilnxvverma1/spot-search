@@ -6,6 +6,12 @@
 
 	<title>Spot Search</title>
 
+	<!-- Compiled and minified CSS -->
+		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.5/css/materialize.min.css">
+
+		<!-- Compiled and minified JavaScript -->
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.5/js/materialize.min.js"></script>
+
 	<!-- CSS -->
 	<link rel="stylesheet" href="libs/bootstrap/dist/css/bootstrap.min.css">
 	<link rel="stylesheet" href="css/style.css"> <!-- custom styles -->
@@ -29,14 +35,17 @@
 		</div>
 		<div>
 			<h2>LOGO</h2>
+			<div class="row">
+
 			<form action='search' method='get'>
 				<input type='text' placeholder="Search"/>
 				<input type='submit' value='Search'/>
 			</form>
 		</div>
+		</div>
 
         <div>
-            <h4>Showing results for {{test}}</h4>
+            <h4>Showing results for <%= itemToSearch %></h4>
             <!--TODO list of datamodel views -->
 						<!--Each item-->
 						<ul class='resultList' ng-repeat="item in items">
