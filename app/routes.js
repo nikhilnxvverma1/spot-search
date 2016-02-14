@@ -21,5 +21,9 @@ module.exports = function(app) {
         })
         
 	});
+    
+    app.get('/search', function(req, res) {
+	   res.sendfile('./public/results.html');
+	});
 
 };
