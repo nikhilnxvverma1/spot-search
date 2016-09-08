@@ -4,4 +4,4 @@ Spot Search is google for music. It allows you to search for tracks,albums and a
 
 ![Spot search preview](http://challengepost-s3-challengepost.netdna-ssl.com/photos/production/software_photos/000/346/910/datas/gallery.jpg)
 
-Spot search was developed at a hackathon in under 15-20 hours. The code quality is only passable at best. You can check the main submission [here](www.devpost.com/software/spot-search)
+Spot search was developed at a hackathon in under 15-20 hours. The code quality is only passable at best. You can check the main submission [here](https://www.devpost.com/software/spot-search)
